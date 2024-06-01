@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ThemeSelectorButton from "./ThemeSelectorButton";
 import NavLink from "./NavLink";
+import { themes } from "@/lib/config";
 
 export default function NavBar() {
   return (
@@ -48,15 +49,11 @@ export default function NavBar() {
             <details>
               <summary>Theme</summary>
               <ul className="p-2 bg-base-100 rounded-t-none">
-                <li>
-                  <ThemeSelectorButton text="Coffee" theme="coffee" />
-                </li>
-                <li>
-                  <ThemeSelectorButton text="Dark" theme="dark" />
-                </li>
-                <li>
-                  <ThemeSelectorButton text="Light" theme="light" />
-                </li>
+                {themes.map((theme) => (
+                  <li>
+                    <ThemeSelectorButton theme={theme} />
+                  </li>
+                ))}
               </ul>
             </details>
           </li>

@@ -16,7 +16,7 @@ const config: Config = {
     },
   },
   daisyui: {
-    themes: ["light", "dark", "coffee"],
+    themes: require("./src/lib/config.ts").themes,
   },
   plugins: [require("daisyui")],
 };
