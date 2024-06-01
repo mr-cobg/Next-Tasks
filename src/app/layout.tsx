@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { cookies as getCookies } from "next/headers";
+import NavBar from "@/components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,12 +15,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookies = getCookies();
-  const theme = cookies.get("theme")?.value ?? "coffee";
-
   return (
-    <html lang="en" data-theme={theme}>
-      <body className={inter.className}>{children}</body>
+    <html lang="en" data-theme="coffee">
+      <body className={inter.className}>
+        <NavBar />
+        <main className="mt-5 mx-5">{children}</main>
+      </body>
     </html>
   );
 }
