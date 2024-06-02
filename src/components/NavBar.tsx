@@ -50,7 +50,7 @@ export default function NavBar() {
               <summary>Theme</summary>
               <ul className="p-2 bg-base-100 rounded-t-none">
                 {themes.map((theme) => (
-                  <li>
+                  <li key={theme}>
                     <ThemeSelectorButton theme={theme} />
                   </li>
                 ))}
