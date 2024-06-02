@@ -62,7 +62,7 @@ export default async function NavBar() {
         </Link>
       </div>
       <div className="navbar-end">
-        <div className="dropdown dropdown-hover">
+        <div className="dropdown dropdown-hover dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost">
             <Image
               src={
@@ -93,7 +93,12 @@ export default async function NavBar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <Image alt="User" src={dummyUserPhoto} width={40} height={40} />
+                <Image
+                  alt="User"
+                  src={user?.imageUrl ?? dummyUserPhoto}
+                  width={40}
+                  height={40}
+                />
               </div>
             </div>
             <ul
