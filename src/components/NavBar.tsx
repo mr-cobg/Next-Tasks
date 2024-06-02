@@ -1,10 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+
 import ThemeSelectorButton from "./ThemeSelectorButton";
 import NavLink from "./NavLink";
-import { themes } from "@/lib/config";
+import { dummyUserPhoto, themes } from "@/lib/config";
 
-export default function NavBar() {
+export default async function NavBar() {
+  const user = await currentUser();
+
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start">
@@ -58,39 +63,44 @@ export default function NavBar() {
             </details>
           </li>
         </ul>
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <Image
-                alt="Tailwind CSS Navbar component"
-                src="https://i.pravatar.cc/1000"
-                width={40}
-                height={40}
-              />
+
+        <SignedIn>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <Image
+                  alt="User"
+                  src={user?.imageUrl ?? dummyUserPhoto}
+                  width={40}
+                  height={40}
+                />
+              </div>
             </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <SignOutButton>
+                  <button>Sign Out</button>
+                </SignOutButton>
+              </li>
+            </ul>
           </div>
-          <ul
-            tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+        </SignedIn>
       </div>
     </div>
   );

@@ -8,3 +8,5 @@ export const themes = [
   "cyberpunk",
   "synthwave",
 ];
+
+export const dummyUserPhoto = "https://i.pravatar.cc/1000";
