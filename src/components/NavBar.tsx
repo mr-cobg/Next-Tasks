@@ -2,10 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
-
+import { dummyUserPhoto, themes } from "@/lib/config";
 import ThemeSelectorButton from "./ThemeSelectorButton";
 import NavLink from "./NavLink";
-import { dummyUserPhoto, themes } from "@/lib/config";
+
+const navLinks = [
+  {
+    path: "/",
+    name: "Home",
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+  },
+  {
+    path: "/about",
+    name: "About",
+  },
+];
 
 export default async function NavBar() {
   const user = await currentUser();
@@ -34,12 +48,11 @@ export default async function NavBar() {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <NavLink href="/" text="Home" />
-            </li>
-            <li>
-              <NavLink href="/about" text="About" />
-            </li>
+            {navLinks.map(({ name, path }) => (
+              <li key={name + path}>
+                <NavLink href={path} text={name} />
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -49,20 +62,28 @@ export default async function NavBar() {
         </Link>
       </div>
       <div className="navbar-end">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <details>
-              <summary>Theme</summary>
-              <ul className="p-2 bg-base-100 rounded-t-none">
-                {themes.map((theme) => (
-                  <li key={theme}>
-                    <ThemeSelectorButton theme={theme} />
-                  </li>
-                ))}
-              </ul>
-            </details>
-          </li>
-        </ul>
+        <div className="dropdown dropdown-hover">
+          <div tabIndex={0} role="button" className="btn btn-ghost">
+            <Image
+              src={
+                "https://img.icons8.com/?size=100&id=13369&format=png&color=000000"
+              }
+              alt="Theme"
+              width={40}
+              height={40}
+            />
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            {themes.map((theme) => (
+              <li key={theme}>
+                <ThemeSelectorButton theme={theme} />
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <SignedIn>
           <div className="dropdown dropdown-end">
@@ -72,12 +93,7 @@ export default async function NavBar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <Image
-                  alt="User"
-                  src={user?.imageUrl ?? dummyUserPhoto}
-                  width={40}
-                  height={40}
-                />
+                <Image alt="User" src={dummyUserPhoto} width={40} height={40} />
               </div>
             </div>
             <ul

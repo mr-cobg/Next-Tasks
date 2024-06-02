@@ -12,8 +12,8 @@ export default function Home() {
               Stay organized, boost productivity, and achieve your goals
               effortlessly with Next Tasks. Our intuitive task management app is
               designed to streamline your workflow, ensuring you never miss a
-              deadline. From daily to-dos to complex project management, [App
-              Name] keeps you on track and in control.
+              deadline. From daily to-dos to complex project management, Next
+              Tasks keeps you on track and in control.
             </p>
 
             <SignedOut>
