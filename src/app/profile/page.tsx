@@ -6,8 +6,6 @@ import Link from "next/link";
 export default async function Page() {
   const user = await currentUser();
 
-  console.log(user);
-
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content text-center">
@@ -26,7 +24,9 @@ export default async function Page() {
               </div>
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title">{user?.fullName}</h2>
+              <h2 className="card-title">
+                {user?.fullName} {user?.id}
+              </h2>
               <p>{user?.primaryEmailAddress?.emailAddress}</p>
               <div className="card-actions">
                 <Link href={"/profile/update"} className="btn btn-primary">

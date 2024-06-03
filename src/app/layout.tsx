@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" data-theme="dark">
-        <body className={`${inter.className} max-w-full overflow-hidden`}>
+        <body className={`${inter.className} max-w-full`}>
           <NavBar />
           {children}
         </body>
